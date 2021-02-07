@@ -3,37 +3,37 @@
 ## 設計
 
 ### エンドポイント
-- GET /item
+- GET /item  
 リストに入っているアイテムを全件取得する
-- POST /item
+- POST /item  
 リストに1件新規追加する
-- PUT /item/${id}
+- PUT /item/${id}  
 指定したidのアイテムを編集する
-- DELETE /item/${id}
+- DELETE /item/${id}  
 指定したidのアイテムを削除する
-- GET /health
+- GET /health  
 生存確認（テスト用）。OKを返す
 
 ### テーブル
 - itemsテーブル
-    - `id`: アイテムのid
+    - `id`: アイテムのid  
         SERIAL型, NOT NULL, PRIMARY KEY
-    - `name`: アイテムの名前
+    - `name`: アイテムの名前  
         TEXT型, NOT NULL
-    - `place`: アイテムを購入する場所(任意)
+    - `place`: アイテムを購入する場所(任意)  
         TEXT型
-    - `amount`: アイテムの購入数
+    - `amount`: アイテムの購入数  
         INT型, NOT NULL
-    - `user_id`: 買ってくる人のユーザid(任意)
+    - `user_id`: 買ってくる人のユーザid(任意)  
         INT型, FOREIGN KEY→usersテーブルのid
-    - `created_at`: アイテムを追加した日付
+    - `created_at`: アイテムを追加した日付  
         DATETIME型, NOT NULL
-    - `updated_at`: アイテムを更新した日付
+    - `updated_at`: アイテムを更新した日付  
         DATETIME型, NOT NULL
 - usersテーブル
-    - `id`: ユーザのid
+    - `id`: ユーザのid  
         SERIAL型(オートインクリメントする) NOT NULL, PRIMARY KEY
-    - `name`: ユーザの名前
+    - `name`: ユーザの名前  
         TEXT型, NOT NULL
 
 #### 注釈
@@ -47,8 +47,7 @@ NULLを許容しない。必ずその型の何らかの値が入ることにな�
 依存関係にある2つのテーブルを結びつけるために設定する。この例でいうと、itemsテーブルのuser_idは、usersテーブルのidから選ばれる。
 
 ### 構成
-- フロントエンド: Nuxt.js
-- バックエンド: Node.js(Express)
+- APIサーバ: Node.js(Express)
 - DB: PostgreSQL
 
 ## バックエンドサーバー開発の下準備
@@ -69,7 +68,7 @@ NULLを許容しない。必ずその型の何らかの値が入ることにな�
 ### Docker-composeでDBをサクッと建てる
 - ルートディレクトリに `docker-compose.yml` を作成
 - 中に以下をコピペする
-```yaml=
+```yaml=1
 version: '3'
 services:
   db:
@@ -154,7 +153,7 @@ module.exports = router
 const healthRouter = require("./routes/health")
 app.use("/health", healthRouter)
 ```
-- `node index.js` でサーバーを実行し、 http://localhost:5000/health にアクセス
+- `node index.js` でサーバーを実行し、 http://localhost:5000/health にアクセス  
 ![](https://i.imgur.com/5QOqErC.png)
 
 ### DBのスキーマ・モデル定義
