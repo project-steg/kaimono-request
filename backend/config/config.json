@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "steg",
+    "password": "U2p7wsaC",
+    "database": "kaimono",
+    "port": 5433,
+    "host": "127.0.0.1",
+    "dialect": "postgresql"
+  }
+}

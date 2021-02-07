@@ -1,0 +1,1 @@
+CREATE DATABASE "kaimono" encoding "UTF8";
