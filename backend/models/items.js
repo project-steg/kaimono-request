@@ -17,12 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   items.init({
-    // id: DataTypes.INTEGER,
     name: DataTypes.STRING,
     place: DataTypes.STRING,
+    amount: DataTypes.INTEGER,
     user_id: DataTypes.INTEGER,
-    // created_at: DataTypes.TIMESTAMP,
-    // updated_at: DataTypes.TIMESTAMP,
   }, {
     sequelize,
     modelName: 'items',

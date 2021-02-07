@@ -20,6 +20,37 @@ router.get("/", (req, res) => {
       .then(items => {
         res.status(200).json(items)
       })
+      .catch((e) => {
+        console.log(e)
+        res.status(500).send("Internal Server Error!")
+      })
+  }
+  catch (e) {
+    console.log(e)
+    res.status(500).send("Internal Server Error!")
+  }
+})
+
+/*
+  POST /item
+  買い物リストに一件新規登録する
+*/
+router.post("/", (req, res) => {
+  try {
+    const req_data = {
+      name: req.body.name,
+      amount: Number(req.body.amount),
+      place: req.body.place ? req.body.place : null,
+      user_id: req.body.user_id ? Number(req.body.user_id) : null,
+    }
+    models.items.create(req_data)
+      .then(() => {
+        res.status(204).end()
+      })
+      .catch((e) => {
+        console.log(e)
+        res.status(400).send("Bad Request")
+      })
   }
   catch (e) {
     console.log(e)

@@ -9,11 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       place: {
         type: Sequelize.STRING
+      },
+      amount: {
+        allowNull: false,
+        type: Sequelize.INTEGER
       },
       user_id: {
         type: Sequelize.INTEGER
