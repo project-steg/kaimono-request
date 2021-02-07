@@ -1,6 +1,6 @@
 # Stegチュートリアル: 家族用買ってきてほしいものリストシステム(Node.js+Express) バックエンド
 
-詳細はこちら: https://hackmd.io/@920oj/BJwNU7Teu
+詳細はこちら: https://github.com/project-steg/kaimono-request/blob/master/docs/backend-tutorial.md
 
 ## API仕様
 ### GET /item
