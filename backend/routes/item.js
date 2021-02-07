@@ -93,4 +93,44 @@ router.get("/:id", (req, res) => {
   }
 })
 
+/*
+  PUT /item/:id
+  指定したidのアイテムを編集する
+*/
+router.put("/:id", (req, res) => {
+  try {
+    const item_id = req.params.id
+    models.items.findOne({
+      where: {
+        id: item_id
+      },
+      include: [{
+        model: models.users, // usersテーブルをJOINする
+        required: false // OUTER JOINするため、requiredはfalseにする
+      }]
+    })
+      .then(item => {
+        if (!!item) {
+          item.name = req.body.name
+          item.amount = Number(req.body.amount)
+          item.place = req.body.place ? req.body.place : null
+          item.user_id = req.body.user_id ? Number(req.body.user_id) : null
+          item.save()
+          res.status(204).end()
+        }
+        else {
+          res.status(404).send("Not found")
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        res.status(500).send("Internal Server Error!")
+      })
+  }
+  catch (e) {
+    console.log(e)
+    res.status(500).send("Internal Server Error!")
+  }
+})
+
 module.exports = router
