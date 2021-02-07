@@ -15,3 +15,23 @@ services:
     hostname: kaimono-db
     restart: always
     user: root
+    networks:
+      - kaimono-network
+
+  app:
+    image: kaimono-backend
+    build: ./
+    ports: 
+      - "5000:5000"
+    networks:
+      - kaimono-network
+    depends_on:
+      - "db"
+
+networks:
+  kaimono-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
