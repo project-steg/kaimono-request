@@ -133,4 +133,40 @@ router.put("/:id", (req, res) => {
   }
 })
 
+/*
+  DELETE /item/:id
+  指定したidのアイテムを削除する
+*/
+router.delete("/:id", (req, res) => {
+  try {
+    const item_id = req.params.id
+    models.items.findOne({
+      where: {
+        id: item_id
+      },
+      include: [{
+        model: models.users, // usersテーブルをJOINする
+        required: false // OUTER JOINするため、requiredはfalseにする
+      }]
+    })
+      .then(item => {
+        if (!!item) {
+          item.destroy()
+          res.status(204).end()
+        }
+        else {
+          res.status(404).send("Not found")
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        res.status(500).send("Internal Server Error!")
+      })
+  }
+  catch (e) {
+    console.log(e)
+    res.status(500).send("Internal Server Error!")
+  }
+})
+
 module.exports = router
