@@ -58,4 +58,39 @@ router.post("/", (req, res) => {
   }
 })
 
+/*
+  GET /item/:id
+  指定したidのアイテムを一件取得する
+*/
+router.get("/:id", (req, res) => {
+  try {
+    const item_id = req.params.id
+    models.items.findOne({
+      where: {
+        id: item_id
+      },
+      include: [{
+        model: models.users, // usersテーブルをJOINする
+        required: false // OUTER JOINするため、requiredはfalseにする
+      }]
+    })
+      .then(item => {
+        if (!!item) {
+          res.json(item)
+        }
+        else {
+          res.status(404).send("Not found")
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        res.status(500).send("Internal Server Error!")
+      })
+  }
+  catch (e) {
+    console.log(e)
+    res.status(500).send("Internal Server Error!")
+  }
+})
+
 module.exports = router
