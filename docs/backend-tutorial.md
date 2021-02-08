@@ -11,6 +11,8 @@
 指定したidのアイテムを編集する
 - DELETE /item/${id}  
 指定したidのアイテムを削除する
+- GET /user  
+登録されているユーザを全件取得する
 - GET /health  
 生存確認（テスト用）。OKを返す
 
@@ -443,6 +445,45 @@ router.delete("/:id", (req, res) => {
 ```
 
 - Sequelizeでは、一件更新する場合は「一度一件取得」したあとに、これを削除する形で値を格納することになる。保存するときは `item.destroy()` をする。
+
+### GET /user を作成する
+- GET /user には、登録されているユーザを全件取得する機能をもたせる
+- routes/user.js を新規作成し、以下をコピペする
+
+```javascript=1
+const express = require("express")
+const router = express.Router()
+const models = require("../models")
+
+/*
+  GET /user
+  登録されているユーザーを全件取得する
+*/
+router.get("/", (req, res) => {
+  try {
+    models.user.findAll({
+      order: [
+        ["id", "ASC"]
+      ]
+    })
+      .then(users => {
+        res.json(users).end()
+      })
+      .catch((e) => {
+        console.log(e)
+        res.status(500).send("Internal Server Error")
+      })
+  }
+  catch (e) {
+    console.log(e)
+    res.status(500).send("Internal Server Error!")
+  }
+})
+
+module.exports = router
+```
+
+- index.js にも、itemのときと同様にRouterを登録する
 
 ### ユーザの初期データを入れる
 - ユーザのCRUD(Create, Read, Update, Delete)を作っても良いが、ユーザはめったに更新されないため、登録する手間を削減するためにも、初期データとして初期化時に挿入することとする。
