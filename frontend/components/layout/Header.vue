@@ -1,10 +1,10 @@
 <template>
   <header>
     <div class="header-inner">
-      <a href="/" class="header-logo">
+      <div class="header-logo" @click="$router.push('/')">
         <Logo />
-      </a>
-      <div class="header-btn">
+      </div>
+      <div class="header-btn" @click="$router.push('/new')">
         追加する
       </div>
     </div>

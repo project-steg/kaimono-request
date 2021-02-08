@@ -14,10 +14,8 @@ export default {
   },
   async asyncData ({ app }) {
     const data = await app.$axios.$get('http://localhost:5000/item')
-    const user = await app.$axios.$get('http://localhost:5000/user')
     return {
-      item_data: data,
-      user_data: user
+      item_data: data
     }
   }
 }
