@@ -8,8 +8,10 @@ app.use(cors())
 
 const healthRouter = require("./routes/health")
 const itemRouter = require("./routes/item")
+const userRouter = require("./routes/user")
 app.use("/health", healthRouter)
 app.use("/item", itemRouter)
+app.use("/user", userRouter)
 
 /* サーバー起動 */
 app.listen(5000, () => {
