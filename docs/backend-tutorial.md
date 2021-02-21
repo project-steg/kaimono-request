@@ -461,7 +461,7 @@ const models = require("../models")
 */
 router.get("/", (req, res) => {
   try {
-    models.user.findAll({
+    models.users.findAll({
       order: [
         ["id", "ASC"]
       ]
